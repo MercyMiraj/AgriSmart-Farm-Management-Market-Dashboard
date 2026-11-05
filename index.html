@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriSmart | Farm Management & Market Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Dashboard Header -->
+    <header class="header">
+      <div class="logo-area">
+        <i class="fa-solid fa-wheat-awn logo-icon"></i>
+        <div>
+          <h1>AgriSmart Dashboard</h1>
+          <p>Farm Operations, Input Expense Ledger & Market Tracker</p>
+        </div>
+      </div>
+      <div class="date-badge" id="current-date"></div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="crops"><i class="fa-solid fa-seedling"></i> Crops</button>
+      <button class="tab-btn" data-tab="expenses"><i class="fa-solid fa-coins"></i> Input Ledger</button>
+      <button class="tab-btn" data-tab="tasks"><i class="fa-solid fa-list-check"></i> Tasks</button>
+      <button class="tab-btn" data-tab="market"><i class="fa-solid fa-chart-line"></i> Market Prices</button>
+    </nav>
+
+    <!-- SECTION 1: CROP TRACKER -->
+    <section id="crops-tab" class="tab-content active">
+      <div class="card">
+        <h2><i class="fa-solid fa-plus-circle"></i> Log New Crop</h2>
+        <form id="crop-form" class="form-grid">
+          <input type="text" id="crop-name" placeholder="Crop Name (e.g. Maize, Tomatoes)" required>
+          <input type="text" id="crop-field" placeholder="Field / Acreage (e.g. Field A, 2 Acres)" required>
+          <input type="date" id="plant-date" required>
+          <input type="date" id="harvest-date" required>
+          <button type="submit" class="btn btn-gold">Add Crop</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2><i class="fa-solid fa-wheat-awn-circle-exclamation"></i> Active Crops</h2>
+        <div id="crop-list" class="grid-list"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INPUT EXPENSE LEDGER -->
+    <section id="expenses-tab" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-plus-circle"></i> Add Farm Expense</h2>
+        <form id="expense-form" class="form-grid">
+          <input type="text" id="expense-item" placeholder="Item (e.g. Fertilizer, Seeds, Labor)" required>
+          <select id="expense-category">
+            <option value="Inputs">Inputs (Seeds/Fertilizer)</option>
+            <option value="Labor">Labor</option>
+            <option value="Equipment">Equipment / Fuel</option>
+            <option value="Irrigation">Irrigation / Utilities</option>
+          </select>
+          <input type="number" id="expense-amount" placeholder="Amount ($)" step="0.01" required>
+          <button type="submit" class="btn btn-gold">Record Expense</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="flex-between">
+          <h2><i class="fa-solid fa-receipt"></i> Expense Ledger</h2>
+          <div class="total-badge">Total Spent: <strong id="total-expenses">$0.00</strong></div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="expense-list"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 3: DAILY FARM TASKS -->
+    <section id="tasks-tab" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-plus-circle"></i> Add Daily Task</h2>
+        <form id="task-form" class="form-grid">
+          <input type="text" id="task-desc" placeholder="Task description (e.g. Apply pesticide to Field B)" required>
+          <select id="task-priority">
+            <option value="Low">Low Priority</option>
+            <option value="Medium" selected>Medium Priority</option>
+            <option value="High">High Priority</option>
+          </select>
+          <button type="submit" class="btn btn-gold">Add Task</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2><i class="fa-solid fa-tasks"></i> Farm Task Checklist</h2>
+        <div id="task-list" class="task-checklist"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MARKET PRICE REFERENCE -->
+    <section id="market-tab" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-store"></i> Produce Market Price Board</h2>
+        <p class="section-desc">Regional average commodity prices per 90kg bag or unit.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Commodity</th>
+              <th>Unit</th>
+              <th>Avg Market Price</th>
+              <th>Trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>White Maize</td>
+              <td>90 kg bag</td>
+              <td class="gold-text">$32.00</td>
+              <td><span class="trend up"><i class="fa-solid fa-arrow-up"></i> +4%</span></td>
+            </tr>
+            <tr>
+              <td>Dry Beans (Rosecoco)</td>
+              <td>90 kg bag</td>
+              <td class="gold-text">$78.00</td>
+              <td><span class="trend steady"><i class="fa-solid fa-minus"></i> 0%</span></td>
+            </tr>
+            <tr>
+              <td>Tomatoes</td>
+              <td>60 kg crate</td>
+              <td class="gold-text">$45.00</td>
+              <td><span class="trend down"><i class="fa-solid fa-arrow-down"></i> -2%</span></td>
+            </tr>
+            <tr>
+              <td>Potatoes (Shangi)</td>
+              <td>50 kg bag</td>
+              <td class="gold-text">$24.00</td>
+              <td><span class="trend up"><i class="fa-solid fa-arrow-up"></i> +6%</span></td>
+            </tr>
+            <tr>
+              <td>Onions (Red)</td>
+              <td>Net bag (10kg)</td>
+              <td class="gold-text">$9.50</td>
+              <td><span class="trend steady"><i class="fa-solid fa-minus"></i> 0%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>AgriSmart Platform | Designed for Smallholder & Commercial Farmers</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
